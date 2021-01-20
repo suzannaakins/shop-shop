@@ -15,7 +15,6 @@ const Cart = () => {
     const [state, dispatch] = useStoreContext();
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
-
     useEffect(() => {
         async function getCart() {
             const cart = await idbPromise('cart', 'get');
@@ -26,6 +25,16 @@ const Cart = () => {
             getCart();
         }
     }, [state.cart.length, dispatch]);
+
+    //useEffect hook for Stripe
+    useEffect(() => {
+        if (data) {
+            stripePromise.then((res) => {
+                res.redirectToCheckout({ sessionId: data.checkout.session });
+            });
+        }
+    }, [data]);
+
 
     function toggleCart() {
         dispatch({ type: TOGGLE_CART });
