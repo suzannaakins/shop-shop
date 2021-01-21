@@ -10,9 +10,43 @@ import {
     TOGGLE_CART
 } from "./actions";
 
-import { useReducer } from 'react';
+// import { useReducer } from 'react';
 
-export const reducer = (state, action) => {
+// const [state, setState] = useState('hello');
+
+// //class based React
+// class App extends React.Component{
+//     //methods and a state
+//     state={page: 1, obj: {a:1, b:2}}
+//     componentDidMount() {
+//         //api call or something to run as soon as function starts
+//         //don't handle state HERE
+//         //can cause an endless reloading loop
+//         //changing state causes a reload
+//     }
+//     changePage() {
+//         //methods are function w/out function keyword
+//         this.setState({
+//             //change the state here
+//             // if you have OBJECT inside you're state, need to use spread operator
+//             obj: {...this.state.obj, a: 7},
+//             //state holds EVERYTHING in the state, in the single object. so no multiple use.
+//             page: this.state.page + 1
+
+//         })
+//     }
+//     render() {
+//         return (
+//             <button onClick={this.changePage}>
+//                 {this.state.page}
+//             </button>
+//         )
+//     }
+// }
+
+const initialState = { products: [], categories: [], currentCategory: "", cart: [], cartOpen: false};
+
+export const reducers = (state=initialState, action) => {
     switch (action.type) {
         // if action type value is the value of `UPDATE_PRODUCTS`, return a new state object with an updated products array
         case UPDATE_PRODUCTS:
@@ -90,6 +124,8 @@ export const reducer = (state, action) => {
     }
 };
 
-export function useProductReducer(initialState) {
-    return useReducer(reducer, initialState);
-}
+export default reducers;
+
+// export function useProductReducer(initialState) {
+//     return useReducer(reducer, initialState);
+// }
